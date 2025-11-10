@@ -1,8 +1,12 @@
 const destinationsUrl = 'JsonFiles/destinations.json';
 const destinationsContainer = document.getElementById('destinationsContainer');
 console.log(destinationsContainer);
+let lastCardIdx = 0;  // to track which destinations cards to show to the user(max 4 cards)
+let destinationsCards = [];  // array of all destincations cards
+let destinationsData = [];   // array of all destination data
+let MaxCards = 4;
 
-async function data() {
+async function  data() {
     try{
         const res = await fetch(destinationsUrl);
         if(!res.ok) throw new Error('Failed fetching data');
@@ -16,9 +20,6 @@ async function data() {
 function    createNewDestinationCard(destinationData) {
     console.log("Hello");
     let destinationCard = document.createElement('div'); 
-    // <div class="w-64 h-64 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center glow">
-    //                     <i class="fas fa-globe-americas text-white text-6xl"></i>
-    //                 </div>
     destinationCard.innerHTML = `
         <div class="flex justify-center">
                     <div class="w-64 h-64 rounded-full bg-gradient-to-r ${destinationData["color"]} flex items-center justify-center glow">
@@ -56,28 +57,44 @@ function    createNewDestinationCard(destinationData) {
                     </div>
                 </div>
     `;
+    destinationCard.classList.add("planet-card", "p-8", "mb-12", "grid", "grid-cols-1", "lg:grid-cols-2",
+            "gap-8", "items-center");
+    
     return destinationCard;
 }
 
 
-function    renderDestinationsCards(destinationsData) {
+function    renderDestinationsCards() {
+    let currentCardNumber = 0;
     for (let destinationData of destinationsData) {
-        console.log(destinationData);
         const destinationCard = createNewDestinationCard(destinationData);
+        currentCardNumber++;
+        // console.log(destinationData);
+        // console.log(currentCardNumber, MaxCards);
+        if (currentCardNumber > MaxCards)
+            destinationCard.style.display = 'none'; // only first 4 cards displayed
         destinationsContainer.appendChild(destinationCard);
+        destinationsCards.push(destinationCard);
+        // destinationsData.push(destinationData);
     }
-    
-    console.log(destinationsContainer);
 }
+
 
 const loadData = async () => {
-    const   destinationsData = await data();
+    destinationsData = await data();
     console.log(typeof destinationsData, destinationsData);
-    renderDestinationsCards(destinationsData);
+    renderDestinationsCards();
 }
 
-function    renderData(destinationsData) {
-    
-}
+function    renderData(destinationsData) {}
 
 loadData();
+let searchInput = document.getElementById('destinations-search-bar');
+console.log("search-bar", searchInput); 
+
+// 4-8
+function    filterDestinations() {
+    // for (let i = 0; i )
+}
+
+searchInput.addEventListener('input', filterDestinations());
