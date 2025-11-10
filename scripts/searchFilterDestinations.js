@@ -1,10 +1,11 @@
 const destinationsUrl = 'JsonFiles/destinations.json';
 const destinationsContainer = document.getElementById('destinationsContainer');
 console.log(destinationsContainer);
-let lastCardIdx = 0;  // to track which destinations cards to show to the user(max 4 cards)
 let destinationsCards = [];  // array of all destincations cards
 let destinationsData = [];   // array of all destination data
+let filteredData = [];  // array of data that is already filtered and can be displayed 
 let MaxCards = 4;
+let currentPage = 0;  // to track current page(max 4 cards per page) 
 
 async function  data() {
     try{
@@ -82,6 +83,7 @@ function    renderDestinationsCards() {
 
 const loadData = async () => {
     destinationsData = await data();
+    filteredData = destinationsData; // all cards are valid at first
     console.log(typeof destinationsData, destinationsData);
     renderDestinationsCards();
 }
@@ -89,12 +91,53 @@ const loadData = async () => {
 function    renderData(destinationsData) {}
 
 loadData();
+
+// filters :
 let searchInput = document.getElementById('destinations-search-bar');
 console.log("search-bar", searchInput); 
 
 // 4-8
-function    filterDestinations() {
-    // for (let i = 0; i )
+
+
+
+function    matchSearchInput(destinationData, inputValue) {
+    inputValue = inputValue.toLowerCase();
+    console.log(inputValue);
+    console.log(destinationData, destinationData["name"]);
+    if (inputValue == "") return true;
+    if (destinationData["name"].toLowerCase().startsWith(inputValue))
+        return true;
+    if (destinationData["type"].toLowerCase().startsWith(inputValue))
+        return true;
+    if (destinationData["description"].toLowerCase().startsWith(inputValue))
+        return true;
+    return false;
 }
 
-searchInput.addEventListener('input', filterDestinations());
+function    validCard(destinationData) {
+    // valid search
+    if (!matchSearchInput(destinationData, searchInput.value)) return false;
+    // valid type
+    // valid price range
+    // valid duration range
+    // valid distance range
+    return true;
+}
+
+function    filterDestinations() {
+    console.log("from filter");
+    
+    destinationsCards.forEach((e, idx) => destinationsCards[idx].style.display = 'none');
+    console.log(destinationsCards);
+    // show just first 4 of the page 
+    filteredData = [];
+    for (let i = 0; i < destinationsCards.length; i++) {
+        if (validCard(destinationsData[i], searchInput.value))
+            filteredData.push(destinationsCards[i]);
+    }
+    currentPage = 0;
+    for (let i = 0; i < Math.min(MaxCards, filteredData.length); i++)
+        filteredData[i].style.display = 'grid';
+}
+
+searchInput.addEventListener('input', filterDestinations);
