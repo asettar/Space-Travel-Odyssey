@@ -51,6 +51,10 @@ function    createNewDestinationCard(destinationData) {
                             <h4 class="font-orbitron text-neon-blue mb-2">Type</h4>
                             <p class="text-gray-300">${destinationData["type"]}</p>
                         </div>
+                        <div class="bg-space-purple/50 p-4 rounded-lg">
+                            <h4 class="font-orbitron text-neon-blue mb-2">Price</h4>
+                            <p class="text-gray-300">${destinationData["price"]}</p>
+                        </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="booking.html" class="btn-primary text-white px-6 py-3 rounded-lg font-bold text-center">
@@ -96,6 +100,9 @@ loadData();
 
 // filters :
 let searchInput = document.getElementById('destinations-search-bar');
+let typeFilter = document.getElementById('type-filter');
+let minimumPrice = document.getElementById('min-price');
+let maximumPrice = document.getElementById('max-price');
 // console.log("search-bar", searchInput); 
 
 // left-right-btns 
@@ -103,7 +110,7 @@ let previousButton = document.getElementById('previous-btn');
 let nextButton = document.getElementById('next-btn');
 
 
-function    matchSearchInput(destinationData, inputValue) {
+function   validSearchInput(destinationData, inputValue) {
     inputValue = inputValue.toLowerCase();
     console.log(inputValue);
     console.log(destinationData, destinationData["name"]);
@@ -117,11 +124,29 @@ function    matchSearchInput(destinationData, inputValue) {
     return false;
 }
 
+function   validType(destinationData, typeValue) {
+    return typeValue.toLowerCase() === destinationData["type"].toLowerCase();
+}
+
+function    validPriceRange(price, minPrice, maxPrice) {
+    if (minPrice == "") minPrice = '0';
+    if (maxPrice == "") maxPrice = '100000000';
+    console.log("prices:")
+    price = parseFloat(price);
+    minPrice = parseFloat(minPrice);
+    maxPrice = parseFloat(maxPrice);
+    console.log(price, minPrice, maxPrice);
+    return  (price >= minPrice && price <= maxPrice);
+}
+
 function    validCard(destinationData) {
     // valid search
-    if (!matchSearchInput(destinationData, searchInput.value)) return false;
+    if (!validSearchInput(destinationData, searchInput.value)) return false;
     // valid type
+    if (!validType(destinationData, typeFilter.value)) return false;
+
     // valid price range
+    if (!validPriceRange(destinationData["price"], minimumPrice.value, maximumPrice.value)) return false;
     // valid duration range
     // valid distance range
     return true;

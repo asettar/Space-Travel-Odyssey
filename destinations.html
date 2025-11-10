@@ -141,14 +141,15 @@
 			<br>
             <details>
 				<summary>Filters</summary>
-				<select name="" id=""> 
+				<select name="" id="type-filter"> 
 					<option value="">all types</option>
-					<option value="">Moon</option>
-					<option value="">Planet</option>
+					<option value="Moon">Moon</option>
+					<option value="Planet">Planet</option>
 				</select>
                 <div>
 					Price 
-					<input type="number" id="price" name="price" placeholder="Price" style="color: black">
+					<input type="number" id="min-price" name="min-price" value="" placeholder="MIN PRICE(USDT)" style="color: black">
+					<input type="number" id="max-price" name="max-price" value="" placeholder="MAX PRICE(USDT)" style="color: black">
 				</div>
 				<br>
 				<div>
@@ -334,8 +335,8 @@
             </div> -->
         </section>
 		<div>
-			<button id = "previous-btn"> Left </button>
-			<button id = "next-btn"> Right </button>
+			<button id = "previous-btn"> Previous </button>
+			<button id = "next-btn"> Next </button>
 		</div>
     </main>
 
