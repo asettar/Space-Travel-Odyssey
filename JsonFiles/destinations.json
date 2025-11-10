@@ -446,5 +446,42 @@
       "popularity": 3,
       "safetyRating": 4,
       "bookingCode": "SV-VENUS"
+    },
+    {
+      "id": "Venus Cloud Cities",
+      "name": "Venus Cloud Cities",
+      "type" : "planet",
+      "planet": "Venus",
+      "image": "/images/destinations/venus.jpg",
+      "thumbnail": "/images/destinations/venus-thumb.jpg",
+      "description": "Float among the clouds of Venus in our state-of-the-art cloud cities. Experience Earth-like conditions at 50km altitude while observing the mysterious Venusian atmosphere.",
+      "shortDescription": "Floating cloud cities in Venus's upper atmosphere",
+      "travelDuration": "5 months",
+      "distance": "41 million km (minimum)",
+      "gravity": "8.87 m/s² (91% of Earth)",
+      "temperature": "30°C (at cloud level)",
+      "atmosphere": "CO₂ with sulfuric acid clouds",
+      "diameter": "12,104 km",
+      "dayLength": "243 Earth days",
+      "highlights": [
+        "Floating cloud cities",
+        "Earth-like atmospheric pressure",
+        "Venusian sunsets",
+        "Super-rotation wind observation"
+      ],
+      "price": 300000,
+      "currency": "USD",
+      "departureFrequency": "Every 19 months",
+      "bestTimeToVisit": "During optimal orbital alignment",
+      "activities": [
+        "Cloud city exploration",
+        "Atmospheric studies",
+        "Solar observation",
+        "Zero-gravity recreation"
+      ],
+      "accommodations": ["luxury", "zero-g"],
+      "popularity": 3,
+      "safetyRating": 4,
+      "bookingCode": "SV-VENUS"
     }
 ]

@@ -3,7 +3,7 @@ const destinationsContainer = document.getElementById('destinationsContainer');
 console.log(destinationsContainer);
 let destinationsCards = [];  // array of all destincations cards
 let destinationsData = [];   // array of all destination data
-let filteredData = [];  // array of data that is already filtered and can be displayed 
+let filteredCards = [];  // array of data that is already filtered and can be displayed 
 let MaxCards = 4;
 let currentPage = 0;  // to track current page(max 4 cards per page) 
 
@@ -37,7 +37,7 @@ function    createNewDestinationCard(destinationData) {
                         </div>
                         <div class="bg-space-purple/50 p-4 rounded-lg">
                             <h4 class="font-orbitron text-neon-blue mb-2">Gravity</h4>
-                            <p class="text-gray-300">${destinationData["Gravity"]}</p>
+                            <p class="text-gray-300">${destinationData["gravity"]}</p>
                         </div>
                         <div class="bg-space-purple/50 p-4 rounded-lg">
                             <h4 class="font-orbitron text-neon-blue mb-2">Temperature</h4>
@@ -46,6 +46,10 @@ function    createNewDestinationCard(destinationData) {
                         <div class="bg-space-purple/50 p-4 rounded-lg">
                             <h4 class="font-orbitron text-neon-blue mb-2">Atmosphere</h4>
                             <p class="text-gray-300">${destinationData["atmosphere"]}</p>
+                        </div>
+                        <div class="bg-space-purple/50 p-4 rounded-lg">
+                            <h4 class="font-orbitron text-neon-blue mb-2">Type</h4>
+                            <p class="text-gray-300">${destinationData["type"]}</p>
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
@@ -76,6 +80,7 @@ function    renderDestinationsCards() {
             destinationCard.style.display = 'none'; // only first 4 cards displayed
         destinationsContainer.appendChild(destinationCard);
         destinationsCards.push(destinationCard);
+        filteredCards.push(destinationCard);
         // destinationsData.push(destinationData);
     }
 }
@@ -83,21 +88,19 @@ function    renderDestinationsCards() {
 
 const loadData = async () => {
     destinationsData = await data();
-    filteredData = destinationsData; // all cards are valid at first
     console.log(typeof destinationsData, destinationsData);
     renderDestinationsCards();
 }
-
-function    renderData(destinationsData) {}
 
 loadData();
 
 // filters :
 let searchInput = document.getElementById('destinations-search-bar');
-console.log("search-bar", searchInput); 
+// console.log("search-bar", searchInput); 
 
-// 4-8
-
+// left-right-btns 
+let previousButton = document.getElementById('previous-btn');
+let nextButton = document.getElementById('next-btn');
 
 
 function    matchSearchInput(destinationData, inputValue) {
@@ -130,14 +133,46 @@ function    filterDestinations() {
     destinationsCards.forEach((e, idx) => destinationsCards[idx].style.display = 'none');
     console.log(destinationsCards);
     // show just first 4 of the page 
-    filteredData = [];
+    filteredCards = [];
     for (let i = 0; i < destinationsCards.length; i++) {
         if (validCard(destinationsData[i], searchInput.value))
-            filteredData.push(destinationsCards[i]);
+            filteredCards.push(destinationsCards[i]);
     }
     currentPage = 0;
-    for (let i = 0; i < Math.min(MaxCards, filteredData.length); i++)
-        filteredData[i].style.display = 'grid';
+    for (let i = 0; i < Math.min(MaxCards, filteredCards.length); i++)
+        filteredCards[i].style.display = 'grid';
 }
 
+
+function    getNextCards() {
+    let currentCardNumber = currentPage * MaxCards;
+    console.log(currentCardNumber);
+    console.log(filteredCards);
+    for (let i = currentCardNumber; i < Math.min(filteredCards.length, currentCardNumber + MaxCards); i++)
+        filteredCards[i].style.display = 'grid';
+}
+
+// events 
 searchInput.addEventListener('input', filterDestinations);
+
+previousButton.addEventListener('click', () => {
+    if (currentPage == 0) return ;
+    currentPage--;
+
+    // make style of current page as none and get next 4 valid cards.
+    destinationsCards.forEach((e, idx) => destinationsCards[idx].style.display = 'none');
+    getNextCards();    
+})
+
+nextButton.addEventListener('click', () => {
+    console.log("next Buton");
+    console.log(currentPage);
+    // if can't get any next card return 
+    if ((currentPage + 1) * MaxCards >= filteredCards.length) return ;
+    currentPage++;
+    console.log(currentPage);
+
+    // make style of current page as none and get next 4 valid cards.
+    destinationsCards.forEach((e, idx) => destinationsCards[idx].style.display = 'none');
+    getNextCards();  
+})
