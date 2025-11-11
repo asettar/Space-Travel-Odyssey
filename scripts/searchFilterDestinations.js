@@ -4,7 +4,7 @@ console.log(destinationsContainer);
 let destinationsCards = [];  // array of all destincations cards
 let destinationsData = [];   // array of all destination data
 let filteredCards = [];  // array of data that is already filtered and can be displayed 
-let MaxCards = 4;
+const MaxCards = 4;
 let currentPage = 0;  // to track current page(max 4 cards per page) 
 
 async function  data() {
@@ -107,16 +107,16 @@ const loadData = async () => {
 loadData();
 
 /// Handle FIlters & Search 
-let searchInput = document.getElementById('destinations-search-bar');
-let typeFilter = document.getElementById('type-filter');
-let minimumPrice = document.getElementById('min-price');
-let maximumPrice = document.getElementById('max-price');
-let minimumDistance = document.getElementById('min-dist');
-let maximumDistance = document.getElementById('max-dist');
+const searchInput = document.getElementById('destinations-search-bar');
+const typeFilter = document.getElementById('type-filter');
+const minimumPrice = document.getElementById('min-price');
+const maximumPrice = document.getElementById('max-price');
+const minimumDistance = document.getElementById('min-dist');
+const maximumDistance = document.getElementById('max-dist');
 
 // left-right-btns 
-let previousButton = document.getElementById('previous-btn');
-let nextButton = document.getElementById('next-btn');
+const previousButton = document.getElementById('previous-btn');
+const nextButton = document.getElementById('next-btn');
 
 
 

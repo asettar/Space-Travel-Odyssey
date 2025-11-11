@@ -113,12 +113,15 @@
             
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
-                <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue">Destinations</a>
+                <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
-                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors">Login</a>
+                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors text-neon-blue" id = "login-header">Login</a>
             </div>
-            
+            <div class="flex flex-col justify-end gap-1 hidden" id = "logout-name">
+                <div> name </div>
+                <button id = "logout-btn"> Logout </button>
+            </div>
             <div class="md:hidden">
                 <button class="text-white focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
@@ -370,7 +373,8 @@
         </div>
     </footer>
 
-    <script src = "scripts/starsCreation.js"></script>
+	<script src="scripts/starsCreation.js"></script>
+    <script src="scripts/login.js"></script>
     <script src = "scripts/searchFilterDestinations.js"></script>
 </body>
 </html>
