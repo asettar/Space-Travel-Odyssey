@@ -14,9 +14,9 @@ const   loginHeader = document.getElementById('login-header')
 const   logoutBtn = document.getElementById('logout-btn');
 const   logoutName = document.getElementById('logout-name');
 
-
 if (localStorage.getItem('isLoggedIn')) updateHeader();
 console.log("localstorage", localStorage.getItem('isLoggedIn'));
+console.log(logoutBtn);
 // console.log(loginHeader);
 // console.log(logoutName);
 
@@ -52,10 +52,9 @@ if (loginSubmitBtn) {
         if (!userExist()) alert("User is not regitered.");
         localStorage.setItem('isLoggedIn', mailInput.value);
         updateHeader();
-        // window.location.href = "../index.html";
+        window.location.href = "../index.html";
     })
 }
 
 
-console.log(logoutBtn);
-// logoutBtn.addEventListener('click', deleteUserSession());
+logoutBtn.addEventListener('click', deleteUserSession);
