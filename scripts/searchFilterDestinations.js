@@ -55,6 +55,14 @@ function    createNewDestinationCard(destinationData) {
                             <h4 class="font-orbitron text-neon-blue mb-2">Price</h4>
                             <p class="text-gray-300">${destinationData["price"]}</p>
                         </div>
+                        <div class="bg-space-purple/50 p-4 rounded-lg">
+                            <h4 class="font-orbitron text-neon-blue mb-2">Distance</h4>
+                            <p class="text-gray-300">${destinationData["distance"]}</p>
+                        </div>
+                        <div class="bg-space-purple/50 p-4 rounded-lg">
+                            <h4 class="font-orbitron text-neon-blue mb-2">travelDuration</h4>
+                            <p class="text-gray-300">${destinationData["travelDuration"]}</p>
+                        </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="booking.html" class="btn-primary text-white px-6 py-3 rounded-lg font-bold text-center">
@@ -85,7 +93,6 @@ function    renderDestinationsCards() {
         destinationsContainer.appendChild(destinationCard);
         destinationsCards.push(destinationCard);
         filteredCards.push(destinationCard);
-        // destinationsData.push(destinationData);
     }
 }
 
@@ -94,26 +101,28 @@ const loadData = async () => {
     destinationsData = await data();
     console.log(typeof destinationsData, destinationsData);
     renderDestinationsCards();
+    filterDestinations();
 }
 
 loadData();
 
-// filters :
+/// Handle FIlters & Search 
 let searchInput = document.getElementById('destinations-search-bar');
 let typeFilter = document.getElementById('type-filter');
 let minimumPrice = document.getElementById('min-price');
 let maximumPrice = document.getElementById('max-price');
-// console.log("search-bar", searchInput); 
+let minimumDistance = document.getElementById('min-dist');
+let maximumDistance = document.getElementById('max-dist');
 
 // left-right-btns 
 let previousButton = document.getElementById('previous-btn');
 let nextButton = document.getElementById('next-btn');
 
 
+
 function   validSearchInput(destinationData, inputValue) {
     inputValue = inputValue.toLowerCase();
-    console.log(inputValue);
-    console.log(destinationData, destinationData["name"]);
+    
     if (inputValue == "") return true;
     if (destinationData["name"].toLowerCase().startsWith(inputValue))
         return true;
@@ -125,7 +134,7 @@ function   validSearchInput(destinationData, inputValue) {
 }
 
 function   validType(destinationData, typeValue) {
-    return typeValue.toLowerCase() === destinationData["type"].toLowerCase();
+    return (typeValue === "") || (typeValue.toLowerCase() === destinationData["type"].toLowerCase());
 }
 
 function    validPriceRange(price, minPrice, maxPrice) {
@@ -139,6 +148,15 @@ function    validPriceRange(price, minPrice, maxPrice) {
     return  (price >= minPrice && price <= maxPrice);
 }
 
+function    validDistanceRange(destinationDistance, minDistance, maxDistance) {
+    destinationDistance = parseFloat(destinationDistance.replace(/,/g, '').replace(/[^\d.]/g, ''));
+    if (minDistance == "") minDistance = '0';
+    if (maxDistance == "") maxDistance = 2e18;
+    minDistance = parseFloat(minDistance);
+    maxDistance = parseFloat(maxDistance);
+    return (destinationDistance >= minDistance && destinationDistance <= maxDistance);
+}
+
 function    validCard(destinationData) {
     // valid search
     if (!validSearchInput(destinationData, searchInput.value)) return false;
@@ -147,8 +165,10 @@ function    validCard(destinationData) {
 
     // valid price range
     if (!validPriceRange(destinationData["price"], minimumPrice.value, maximumPrice.value)) return false;
-    // valid duration range
     // valid distance range
+    if (!validDistanceRange(destinationData["distance"], minimumDistance.value, maximumDistance.value))
+        return false;
+        // valid duration range
     return true;
 }
 
@@ -179,6 +199,11 @@ function    getNextCards() {
 
 // events 
 searchInput.addEventListener('input', filterDestinations);
+typeFilter.addEventListener('change', filterDestinations);
+minimumPrice.addEventListener('input', filterDestinations);
+maximumPrice.addEventListener('input', filterDestinations);
+minimumDistance.addEventListener('input', filterDestinations);
+maximumDistance.addEventListener('input', filterDestinations);
 
 previousButton.addEventListener('click', () => {
     if (currentPage == 0) return ;
