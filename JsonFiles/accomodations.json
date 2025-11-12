@@ -1,5 +1,4 @@
-{
-  "accommodations": [
+[
     {
       "id": "standard",
       "name": "Standard Cabin",
@@ -184,5 +183,4 @@
       "popularity": 4,
       "comfortRating": 5
     }
-  ]
-}
+]

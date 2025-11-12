@@ -150,13 +150,13 @@
                 <form class="space-y-6">
                     <div>
                         <label class="block text-gray-300 mb-2">Destination</label>
-                        <select name="destination" id="" class="form-input w-full px-4 py-3">
+                        <select name="destination" id="user-destination" class="form-input w-full px-4 py-3">
                             <option value="">Select your destination</option>
                             <option value="Mars">Mars</option>
-                            <option value="The Moon">The Moon</option>
+                            <option value="Moon">Moon</option>
                             <option value="Europa">Europa</option>
                             <option value="Venus">Venus</option>
-                            <option value="Orbital Station">Orbital Station</option>
+                            <option value="Orbital Station">Orbital-Station</option>
                             <option value="Titan">Titan</option>
                         </select> 
                     </div>
@@ -177,7 +177,7 @@
                         <label>Group (3-6)</label><br>
                     </div>
                     <span class="block text-gray-300 mb-3 my-1"> Accomodations </span>
-                    <div class="flex gap-3">
+                    <div class="grid grid-cols-3 gap-3" id = "accomodations-container">
                         <div class = "form-input w-full px-4 py-3">
                             <h6 class = "text-sky-500/50 text-1xl">Standard Cabin</h6>
                             <p>Comfortable private quarters with basic amenities</p>
