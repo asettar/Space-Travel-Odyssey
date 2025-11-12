@@ -47,9 +47,14 @@ function    deleteUserSession() {
 if (loginSubmitBtn) {
     loginSubmitBtn.addEventListener('click', (event) => {
         event.preventDefault();
-        if (localStorage.getItem('isLoggedIn')) 
+        if (localStorage.getItem('isLoggedIn'))  {
             alert("user is already logged in.");
-        if (!userExist()) alert("User is not regitered.");
+            return ;
+        }
+        if (!userExist()) {
+            alert("User is not regitered.");
+            return ;
+        }
         localStorage.setItem('isLoggedIn', mailInput.value);
         updateHeader();
         window.location.href = "../index.html";
