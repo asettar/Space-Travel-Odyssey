@@ -155,8 +155,8 @@
                             <option value="Mars">Mars</option>
                             <option value="Moon">Moon</option>
                             <option value="Europa">Europa</option>
-                            <option value="Venus">Venus</option>
-                            <option value="Orbital Station">Orbital-Station</option>
+                            <option value="venus-clouds">Venus-clouds</option>
+                            <option value="Orbital-Station">Orbital-Station</option>
                             <option value="Titan">Titan</option>
                         </select> 
                     </div>
@@ -171,9 +171,9 @@
                     <div class="flex gap-2">
                         <input type="radio" id="solo-traveler" name = "choice">
                         <label>solo-traveler</label>
-                        <input type="radio" id="Couple" name = "choice">
+                        <input type="radio" id="couple-traveler" name = "choice">
                         <label>Couple (2)</label><br>
-                        <input type="radio" id="Group" name = "choice">
+                        <input type="radio" id="group-traveler" name = "choice">
                         <label>Group (3-6)</label><br>
                     </div>
                     <span class="block text-gray-300 mb-3 my-1"> Accomodations </span>
@@ -194,38 +194,41 @@
                             <p>Price per Day:    500 USD</p>
                         </div>
                     </div>
-                    <div id = "info-form">
-                        <h1 class="font-orbitron text-12xl mb-2 text-glow"> Personal information </h1>
-
-                        <div class = "grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-gray-300 mb-2">First Name</label>
-                                <input type="text" id = "first-name"
-                                    class="form-input w-full px-4 py-3" placeholder="Enter your first Name">
+                    <div id = "info-form-container">
+                        <div class = "info-form">
+                            <h1 class="font-orbitron text-12xl mb-2 text-glow"> Personal information </h1>
+    
+                            <div class = "grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-gray-300 mb-2">First Name</label>
+                                    <input type="text"
+                                        class="first-name form-input w-full px-4 py-3" placeholder="Enter your first Name">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Last Name</label>
+                                    <input type="text"
+                                        class="last-name form-input w-full px-4 py-3" placeholder="Enter your last Name">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Email address </label>
+                                    <input type="mail"
+                                        class="email-address form-input w-full px-4 py-3" placeholder="Enter your email">
+                                </div>
+                                <div>
+                                   <label class="block text-gray-300 mb-2">Phone number </label>
+                                    <input type="text"
+                                        class="phone-number form-input w-full px-4 py-3" placeholder="Enter your phone number">
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-gray-300 mb-2">Last Name</label>
-                                <input type="text" id = "last-name"
-                                    class="form-input w-full px-4 py-3" placeholder="Enter your last Name">
-                            </div>
-                            <div>
-                                <label class="block text-gray-300 mb-2">Email address </label>
-                                <input type="mail" id = "email-address"
-                                    class="form-input w-full px-4 py-3" placeholder="Enter your email">
-                            </div>
-                            <div>
-                               <label class="block text-gray-300 mb-2">Phone number </label>
-                                <input type="text" id = "phone-number"
-                                    class="form-input w-full px-4 py-3" placeholder="Enter your phone number">
-                            </div>
+                            <label class="block text-gray-300 mb-2">Special requirements </label>
+                            <textarea type="text"
+                                class="special-requirements form-input w-full px-4 py-3" placeholder="any special requirements or notes">
+                            </textarea>
                         </div>
-                        <label class="block text-gray-300 mb-2">Special requirements </label>
-                        <textarea type="text" id = "special-requirements"
-                            class="form-input w-full px-4 py-3" placeholder="any special requirements or notes">
-                        </textarea>
+
                     </div>
                     
-                    <button type="submit" id = "submit-btn" class=" text-white w-full py-3 rounded-lg font-bold glow">
+                    <button id = "add-passenger" class=" text-white w-full py-3 rounded-lg font-bold glow">
                         add Passenger
                     </button>
                     <button type="submit" id = "submit-btn" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow">
