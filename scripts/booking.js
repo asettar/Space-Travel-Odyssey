@@ -20,6 +20,7 @@ async function loadAccomodationData() {
 
 loadAccomodationData();
 
+// data
 const userDestination = document.getElementById('user-destination');
 const accomodationsContainer = document.getElementById('accomodations-container');
 const soloTraveler = document.getElementById('solo-traveler');
@@ -29,7 +30,37 @@ const addPassengerBtn = document.getElementById('add-passenger');
 const confirmBtn = document.getElementById('confirm-btn');
 const informationForm = document.querySelector('.info-form');
 const infoFormContainer = document.getElementById('info-form-container');  
-let currentSelectedAccomodation = null;   // to track the user seleced accomodation 
+const totalPriceElement = document.getElementById('total-price');
+let   currentSelectedAccomodation = null;   // to track the user selected accomodation 
+let   currentPrice = '-';
+
+const   destinationsPrices = {
+    'Moon' : 25000,
+    'Mars' : 150000,
+    'Europa' : 450000,
+    'Titan' : 600000,
+    'Venus-clouds' : 300000,
+    'Orbital-Station' : 50000
+};
+
+const   accomodationsPrices = {
+    'Standard Cabin' : 500,
+    'Luxury Suite' : 1200,
+    'Zero-G Pod' : 2000,
+    'Family Module' : 1800,
+    'Research Suite' : 1500,
+    'Honeymoon Suite' : 2500
+
+};
+
+const   travelDuration = {
+    'Moon' : 3,
+    'Mars' : 270,
+    'Europa' : 2160,
+    'Titan' : 2520,
+    'Venus-clouds' : 150,
+    'Orbital-Station' : 2
+}
 
 // dbg:
 // console.log(userDestination);
@@ -52,6 +83,7 @@ function    updateAccomodationselection(selectedAccomodation) {
         currentSelectedAccomodation.classList.remove('selected');
     selectedAccomodation.classList.add('selected');
     currentSelectedAccomodation = selectedAccomodation;
+    updatePrice();
 }
 
 
@@ -72,9 +104,33 @@ function    addAccomadationCard(accomodationData) {
     accomodationsContainer.appendChild(newAccomodationCard);
 }
 
+// reset selected accomodation
+function    resetPriceAndAccomodation() {
+    if (currentSelectedAccomodation)
+        currentSelectedAccomodation.classList.remove('selected');
+    currentSelectedAccomodation = null;
+    currentPrice = '-';
+    totalPriceElement.innerHTML = "-";
+}
+
+// update price when destination or accomodation changes
+function    updatePrice() {
+    const currentDestination = userDestination.value;
+    if (currentSelectedAccomodation && currentDestination) {
+        console.log("Update price");
+        const accomodationName = currentSelectedAccomodation.querySelector('h6').innerHTML;
+        currentPrice = destinationsPrices[currentDestination] 
+        + accomodationsPrices[accomodationName] * 2 * travelDuration[currentDestination];
+        console.log(accomodationName, accomodationsPrices[accomodationName]);
+        console.log(destinationsPrices[currentDestination]);
+    }
+    else currentPrice = '-';
+    totalPriceElement.innerHTML = `${currentPrice}`;
+}
+
 function    checkUserDestination() {
     console.log("destination changed");
-    currentSelectedAccomodation = null;
+    resetPriceAndAccomodation();  // remove any previous selection
     // update accomodations based on the picked destination
     let validAccomodations = [];  // availble for the current destination 
     const currentDestination = userDestination.value.toLowerCase();
@@ -87,6 +143,7 @@ function    checkUserDestination() {
         if (isAvailbaleDestination(accomodationData, currentDestination))
             addAccomadationCard(accomodationData);            
     }
+    updatePrice();
 }
 
 
@@ -98,7 +155,7 @@ function    addNewForm() {
 // to adjust num of forms based on selected option
 function    checkForms(need) {
     console.log("checked", need);
-
+    // reset accomodation
     let currentForms = infoFormContainer.querySelectorAll('.info-form');
     currentFormsCount = currentForms.length;
     console.log(currentFormsCount);
@@ -121,7 +178,6 @@ function    checkForms(need) {
 }
 
 // events
-
 userDestination.addEventListener('change', checkUserDestination);
 soloTraveler.addEventListener('change', () => {checkForms(1)});
 coupleTraveler.addEventListener('change', () => {checkForms(2)});
@@ -138,3 +194,7 @@ confirmBtn.addEventListener('click', (e) => {
     // check if form is Valid
     // redirect to my bookingsPage or ticket page 
 })
+
+
+
+// price = initial price travelDuration(of destination) * pricePerday * 2
