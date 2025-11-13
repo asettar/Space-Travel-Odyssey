@@ -103,6 +103,15 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
         }
+        .selected {
+            border: 2px solid rgba(14, 165, 233, 0.4);
+            border-radius: 15px;
+        }
+        /* .selected:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+        } */
+
     </style>
 </head>
 <body class="text-white font-exo min-h-screen">
@@ -221,17 +230,17 @@
                                 </div>
                             </div>
                             <label class="block text-gray-300 mb-2">Special requirements </label>
-                            <textarea type="text"
+                            <textarea type="text" value = ""
                                 class="special-requirements form-input w-full px-4 py-3" placeholder="any special requirements or notes">
                             </textarea>
                         </div>
 
                     </div>
-                    
+                    <p class = "price"> Price = <span>-</span> USDT</p>
                     <button id = "add-passenger" class=" text-white w-full py-3 rounded-lg font-bold glow">
                         add Passenger
                     </button>
-                    <button type="submit" id = "submit-btn" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow">
+                    <button type="submit" id = "confirm-btn" class="btn-primary text-white w-full py-3 rounded-lg font-bold glow">
                         Confirm booking
                     </button>
                     

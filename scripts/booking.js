@@ -26,10 +26,12 @@ const soloTraveler = document.getElementById('solo-traveler');
 const coupleTraveler = document.getElementById('couple-traveler');
 const groupTraveler = document.getElementById('group-traveler');
 const addPassengerBtn = document.getElementById('add-passenger');
-const submitBtn = document.getElementById('submit-btn');
+const confirmBtn = document.getElementById('confirm-btn');
 const informationForm = document.querySelector('.info-form');
 const infoFormContainer = document.getElementById('info-form-container');  
+let currentSelectedAccomodation = null;   // to track the user seleced accomodation 
 
+// dbg:
 // console.log(userDestination);
 // console.log(accomodationsContainer);
 console.log(soloTraveler);
@@ -44,6 +46,15 @@ function    isAvailbaleDestination(accomdationData, destination) {
     return (available.includes(destination));
 }
 
+// select a new accomodation and remove already selected accomodation
+function    updateAccomodationselection(selectedAccomodation) {
+    if (currentSelectedAccomodation)
+        currentSelectedAccomodation.classList.remove('selected');
+    selectedAccomodation.classList.add('selected');
+    currentSelectedAccomodation = selectedAccomodation;
+}
+
+
 function    addAccomadationCard(accomodationData) {
     let newAccomodationCard = document.createElement('div');
     newAccomodationCard.innerHTML = 
@@ -54,11 +65,16 @@ function    addAccomadationCard(accomodationData) {
             <p>Price per Day:    ${accomodationData["pricePerDay"]} USD</p>
         </div>
     `;
+    // add event listeners. 
+    newAccomodationCard.addEventListener('click', () => {
+        updateAccomodationselection(newAccomodationCard);    
+    })
     accomodationsContainer.appendChild(newAccomodationCard);
 }
 
 function    checkUserDestination() {
     console.log("destination changed");
+    currentSelectedAccomodation = null;
     // update accomodations based on the picked destination
     let validAccomodations = [];  // availble for the current destination 
     const currentDestination = userDestination.value.toLowerCase();
@@ -110,12 +126,15 @@ userDestination.addEventListener('change', checkUserDestination);
 soloTraveler.addEventListener('change', () => {checkForms(1)});
 coupleTraveler.addEventListener('change', () => {checkForms(2)});
 groupTraveler.addEventListener('change', () => {checkForms(3)});
-addPassengerBtn.addEventListener('click', (e) => {
-        e.preventDefault();
+addPassengerBtn.addEventListener('click', (event) => {
+        event.preventDefault();
         if (groupTraveler.checked) addNewForm();
     }
 );
-submitBtn.addEventListener('click', (e) => {
+
+confirmBtn.addEventListener('click', (e) => {
     e.preventDefault();
     console.log("submit clicked");
+    // check if form is Valid
+    // redirect to my bookingsPage or ticket page 
 })
