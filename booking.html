@@ -210,12 +210,12 @@
                             <div class = "grid grid-cols-2 gap-3">
                                 <div>
                                     <label class="block text-gray-300 mb-2">First Name</label>
-                                    <input type="text"
+                                    <input type="text" oninput="isValidName(this)"
                                         class="first-name form-input w-full px-4 py-3" placeholder="Enter your first Name">
                                 </div>
                                 <div>
                                     <label class="block text-gray-300 mb-2">Last Name</label>
-                                    <input type="text"
+                                    <input type="text" oninput="isValidName(this)"
                                         class="last-name form-input w-full px-4 py-3" placeholder="Enter your last Name">
                                 </div>
                                 <div>
@@ -321,6 +321,6 @@
     <script src="scripts/starsCreation.js"></script>
     <script src="scripts/login.js"></script>
     <script src="scripts/booking.js"></script>
-
+    <script src="scripts/bookingFormValidation.js"></script>
 </body>
 </html>
