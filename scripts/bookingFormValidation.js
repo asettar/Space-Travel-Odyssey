@@ -100,11 +100,34 @@ function    isValidNames() {
     return true;
 }
 
+function    isValidDestination() {
+    const userDestination = document.getElementById('user-destination');
+    
+    const parent = userDestination.parentElement;
+    const lastChild = parent.lastElementChild;
+    if (!userDestination.value) {
+        if (lastChild.tagName != 'P') {
+            const error = addErrorMessage("Please select a destination.");
+            parent.appendChild(error);
+        }
+        userDestination.focus();
+        return false;
+    }
+    else {
+        if (lastChild.tagName === 'P') lastChild.remove();
+        return true;
+    }
+}
+
 function    isRadioSelected() {
     let radio = document.querySelector('input[name="choice"]:checked');
     return (radio);
 }
 
+
 function    isValidForm() {
-    return (isValidNames() && isValidEmails() && isValidPhoneNumbers() && isValidMessages() && isRadioSelected());
+    return (isValidNames() && isValidEmails() && isValidPhoneNumbers()
+        && isValidMessages() && isValidDestination() && isRadioSelected() 
+    );
+    // destination and accomdations selected
 }
