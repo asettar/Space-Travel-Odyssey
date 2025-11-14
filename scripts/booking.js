@@ -201,7 +201,7 @@ addPassengerBtn.addEventListener('click', (event) => {
 confirmBtn.addEventListener('click', (e) => {
     e.preventDefault();
     console.log("submit clicked");
-    formValidate();
+    isValidForm();
     // check if form is Valid
     // redirect to my bookingsPage or ticket page 
 })
