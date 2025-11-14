@@ -29,20 +29,48 @@ function    updateStyleOnSuccess(input) {
         lastChild.remove();
 }
 
-
 // fucntions to  check validation of inputs feilds
+
+function    isValidMessage(input) {
+    const pattern = /^[a-zA-Z]{4,}$/
+    const isValid = pattern.test(input.value);
+
+    if (isValid) updateStyleOnSuccess(input);
+    else  addError(input, "Message should contain only alphabetic characters and at have at least 4 lenght.");
+    return isValid;
+}
+
+function    isValidMessages() {
+    let messageInputs = document.querySelectorAll('.special-requirements');
+    for (let input of messageInputs) {
+        if (!isValidMessage(input)) return false; 
+    }
+    return true;
+}
+
+function    isValidEmail(input) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const isValid = pattern.test(input.value);
+
+    if (isValid) updateStyleOnSuccess(input);
+    else  addError(input, "invalid mail");
+    return isValid;
+}
+
+function    isValidEmails() {
+    let emailInputs = document.querySelectorAll('.email-address');
+    for (let input of emailInputs) {
+        if (!isValidEmail(input)) return false; 
+    }
+    return true;
+}
 
 function    isValidPhoneNumber(input) {
     const pattern = /^\+?\d{10}$/
-    const parent = input.parentElement;
     const isValid = pattern.test(input.value);
-    const lastChild = parent.lastElementChild; 
-    if (isValid) {
-        input.style["border-color"] = 'green';
-        if (lastChild.tagName == 'P')   // isError
-            lastChild.remove();
-    }
-    else    addError(input, "Phone should contain exactly 10 digits");
+
+    if (isValid) updateStyleOnSuccess(input);
+    else  addError(input, "Phone should contain exactly 10 digits");
     return isValid;
 }
 
@@ -51,13 +79,12 @@ function    isValidPhoneNumbers() {
     for (let input of phonenumInputs) {
         if (!isValidPhoneNumber(input)) return false; 
     }
-    return false;
+    return true;
 }
 
 function    isValidName(input) {
     const pattern = /^[a-zA-Z]{5,}$/;
     const isValid = pattern.test(input.value);
-    const parent = input.parentElement;
     
     if (isValid) updateStyleOnSuccess(input);
     else
@@ -70,9 +97,14 @@ function    isValidNames() {
     for (let input of namesInput) {
         if (!isValidName(input)) return false; 
     }
-    return false;
+    return true;
+}
+
+function    isRadioSelected() {
+    let radio = document.querySelector('input[name="choice"]:checked');
+    return (radio);
 }
 
 function    isValidForm() {
-    return (isValidNames() && isValidPhoneNumbers());
+    return (isValidNames() && isValidEmails() && isValidPhoneNumbers() && isValidMessages() && isRadioSelected());
 }

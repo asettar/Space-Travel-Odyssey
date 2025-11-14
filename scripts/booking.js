@@ -150,7 +150,7 @@ function    checkUserDestination() {
 function    addNewForm() {
     const newForm = informationForm.cloneNode(true);
     // reset form inputs and remove inline errors;
-    newForm.querySelectorAll('input').forEach((e) => {
+    newForm.querySelectorAll('input, textarea').forEach((e) => {
         e.value = '';
         e.style.border = '1px solid rgba(14, 165, 233, 0.3)';
     });
@@ -201,8 +201,8 @@ addPassengerBtn.addEventListener('click', (event) => {
 confirmBtn.addEventListener('click', (e) => {
     e.preventDefault();
     console.log("submit clicked");
-    isValidForm();
-    // check if form is Valid
+    if (isValidForm() && confirm('are you sure you conform this booking ?'))
+        window.location.href = "../index.html";
     // redirect to my bookingsPage or ticket page 
 })
 

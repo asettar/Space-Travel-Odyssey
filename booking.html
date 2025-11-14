@@ -220,7 +220,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-300 mb-2">Email address </label>
-                                    <input type="mail"
+                                    <input type="mail" oninput="isValidEmail(this)"
                                         class="email-address form-input w-full px-4 py-3" placeholder="Enter your email">
                                 </div>
                                 <div>
@@ -230,7 +230,7 @@
                                 </div>
                             </div>
                             <label class="block text-gray-300 mb-2">Special requirements </label>
-                            <textarea type="text" value = ""
+                            <textarea type="text" value = "" oninput="isValidMessage(this)"
                                 class="special-requirements form-input w-full px-4 py-3" placeholder="any special requirements or notes">
                             </textarea>
                         </div>
